@@ -21,6 +21,29 @@ sunflower <- chicks$feed[] == "sunflower"
 casein_chicks <- chicks[casein,]
 casein_chicks
 
+# also we can use subset to do it
+casein_chicks <- subset(chicks, feed == "casein")
+
 # we can use the function is.na to see which rows have na values 
 is.na(chicks$weight)
+
+# we can use the function !is.na to see which rows haven't na values 
+!is.na(chicks$weight)
+
+# Reload chicks non na values only
+chicks <- chicks[!is.na(chicks$weight),]
+
+chicks <- subset(chicks,!is.na(weight))
+
+# we can see the rownames with this function
+rownames(chicks)
+
+# when you delete values, the rownames doesn't have those numbers
+# we can recreate the rowname asigning NULL as rownames
+
+rownames(chicks) <- NULL
+rownames(chicks)
+
+
+length(chicks$weight)
 
