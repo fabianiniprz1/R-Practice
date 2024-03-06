@@ -1,12 +1,17 @@
 get_votes <- function(promt = "Enter votes: ") {
-  votes <- suppressWarnings(as.integer(readline(promt)))
-  ifelse(is.na(votes),0,votes)
+                repeat{
+                  votes <- suppressWarnings(as.integer(readline(promt)))
+                  if(!is.na(votes)){
+                    return(votes)
+                  }
+                }
+              }
+
+total <- 0
+
+for (i in c("Mario","Peach","Bowser")){
+  votes <- get_votes(paste0(i, ": "))
+  total <- total + votes
 }
-
-mario <- get_votes()
-peach <- get_votes()
-browse <- get_votes()
-
-total <- mario + peach + browse
 
 print(paste("The total is:",total))
