@@ -30,9 +30,31 @@ filter(
 
 # We could write our code with |> to do it more readable
 
-storms |>
+hurricane <- storms |>
   select(!c(lat,long,pressure,ends_with("diameter"))) |>
   filter(status == "hurricane") |>
-  arrange(desc(wind),name,desc(hour))
+  arrange(desc(wind),name,desc(hour)) |>
+  distinct(name,year, .keep_all = TRUE)
 
-         
+hurricane |>
+  select(c(year,name,wind)) |>
+  write.csv("hurricanes.csv", row.names = FALSE)
+
+hurricanes <- read.csv("hurricanes.csv")
+View(hurricanes)       
+
+hurricanes|>
+  group_by(year)|>
+  slice_max(order_by = wind) |>
+  filter(between(year,1980,1990))
+
+ten_years_hurracanes <- function(b,e){
+  
+top_10 <- hurricanes|>
+  group_by(year)|>
+  summarise(hurracanes = n())|>
+  arrange(desc(hurracanes))|>
+  filter(between(year,b,e))
+
+return(top_10)
+}
